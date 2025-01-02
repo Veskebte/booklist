@@ -121,27 +121,28 @@ class BookController extends Controller
         return response()->json(['message' => 'Buku sudah dihapus!'], 200);
     }
 
-    public function favorite(Request $request, $bookId) {
-        $book = Book::findOrFail($bookId);
+    public function favorite(Request $request, $id) {
+        $book = Book::findOrFail($id);
         $user = $request->user();
 
         if ($user->favorites()->where('book_id', $book->id)->exists()) {
-            return response()->json(['message' => 'Anda sudah menyukai buku ini'], 400); // Fix: added missing status code
+            return response()->json(['message' => 'Anda sudah menfavoritkan buku ini']. 400);
         }
-
 
         $user->favorites()->create(['book_id' => $book->id]);
 
-        return response()->json(['message' => 'Favorited successfully'], 200);
+        return response()->json(['message' => 'Favorited successfully']);
     }
 
-    public function unfavorite(Request $request, $bookId) {
-        $favorite = Favorite::where('user_id', $request->user_id)->where('book_id', $request->book_id)->first();
+    public function unfavorite($id) {
+        $favorite = Favorite::where('user_id', auth()->id())->where('book_id', $id)->first();
 
-        if ($favorite) {
-            $favorite->delete();
+        if (!$favorite) {
+            return response()->json(['message' => 'Anda belum menfavoritkan buku ini'], 400);
         }
 
-        return response()->json(['message' => 'Unfavorite successfully'], 200);
+        $favorite->delete();
+
+        return response()->json(['message' => 'Unfavorited successfully']);
     }
 }
