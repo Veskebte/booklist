@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use Illuminate\Http\Request;
 
-class LikeController extends Controller
+class LikeController
 {
     /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class LikeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Like $like): void
+    public function update(Request $request, Like $like)
     {
         //
     }

@@ -9,14 +9,14 @@ class Like extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reply_id', 'user_id', ];
-
-    public function reply() {
-        return $this->belongsTo(Reply::class);
-    }
+    protected $fillable = ['user_id', 'reply_id'];
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+    
+    public function reply() {
+        return $this->belongsTo(Reply::class);
     }
 
 }

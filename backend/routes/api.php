@@ -17,8 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/books/{id}', [BookController::class, 'show']);
     Route::put('/books/{id}', [BookController::class, 'update']);
     Route::delete('/books/{id}', [BookController::class, 'destroy']);
-    Route::post('/books/{id}/favorite', [BookController::class, 'favorite']);
-    Route::delete('/books/{id}/favorite', [BookController::class, 'unfavorite']);
+    // Route::post('/books/{id}/favorite', [BookController::class, 'favorite']);
+    // Route::delete('/books/{id}/favorite', [BookController::class, 'unfavorite']);
 
     Route::get('/books/{bookId}/replies', [ReplyController::class, 'index']);
     Route::post('replies', [ReplyController::class, 'store']);
