@@ -22,4 +22,13 @@ class Reply extends Model
     public function book() {
         return $this->belongsTo(Book::class);
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likeCount(){
+        return $this->likes()->count();
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class ReplyController extends Controller
@@ -109,5 +110,28 @@ class ReplyController extends Controller
 
         $reply->delete();
         return response()->json(['message' => 'Reply deleted successfully']);
+    }
+
+    public function like(Request $request, $replyId) {
+        $reply = Reply::findOrFail($replyId);
+        $user = $request->user();
+
+        if ($user->likes()->where('reply_id', $reply->id)->exists()) {
+            return response()->json(['message' => 'Anda telah menyukai komentar ini.'], 400);
+        }
+
+        $user->likes()->create(['reply_id' => $reply->id]);
+
+        return response()->json(['message' => 'Liked successfully'], 200);
+    }
+
+    public function unlike(Request $request, $replyId) {
+        $like = Like::where('user_id', $request->user_id)->where('reply_id', $request->$replyId)->first();
+
+        if ($like) {
+            $like->delete();
+        }
+
+        return response()->json(['message' => 'Unlike successfully'], 200);
     }
 }

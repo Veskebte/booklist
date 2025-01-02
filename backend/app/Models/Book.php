@@ -19,4 +19,12 @@ class Book extends Model
     public function getFotoAttribute($value) {
         return $value ? asset('storage/'.$value) : null;
     }
+
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function likeFavorite() {
+        return $this->favorites()->count();
+    }
 }
