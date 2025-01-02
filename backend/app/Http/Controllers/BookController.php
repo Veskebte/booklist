@@ -78,16 +78,16 @@ class BookController extends Controller
         $book = Book::find($id);
 
         if (!$book) {
-            return response()->json(['message' => 'Buku tidak ditemukan']. 404);
+            return response()->json(['message' => 'Buku tidak ditemukan'], 404);
         }
 
         $validated = $request->validate([
-            'isbn' => 'required|unique:books,isbn'.$id,
-            'judul' => 'required',
-            'penulis' => 'required',
-            'penerbit' => 'required',
-            'genre' => 'required',
-            'deskripsi' => 'required',
+            'isbn' => 'nullable|unique:books,isbn'.$id,
+            'judul' => 'nullable',
+            'penulis' => 'nullable',
+            'penerbit' => 'nullable',
+            'genre' => 'nullable',
+            'deskripsi' => 'nullable',
             'foto' => 'nullable|file|mimes:png,jpg,jpeg'
         ]);
 
